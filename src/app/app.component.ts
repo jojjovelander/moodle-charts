@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from './api.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {ApiService} from './api.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(el: ElementRef, private route: ActivatedRoute, private apiService: ApiService) {
+  constructor(el: ElementRef, private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     apiService.userId = el.nativeElement.getAttribute('userId');
   }
 

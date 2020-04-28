@@ -1,45 +1,22 @@
-import { Component, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { multi } from './data';
+import {Component, ElementRef, OnInit} from '@angular/core';
+
+import {ActivatedRoute} from '@angular/router';
+import {ApiService} from './api.service';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  multi: any[];
-  view: any[] = [700, 400];
+export class AppComponent implements OnInit {
 
-  // options
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Country';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Population';
-  legendTitle: string = 'Years';
-
-  colorScheme = {
-    domain: ['#5AA454', '#C7B42C', '#AAAAAA']
-  };
-
-  constructor() {
-    Object.assign(this, { multi })
+  constructor(el: ElementRef, private route: ActivatedRoute, private apiService: ApiService) {
+    apiService.userId = el.nativeElement.getAttribute('userId');
   }
 
-  onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+    });
   }
 }

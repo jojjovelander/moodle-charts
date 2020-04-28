@@ -47,7 +47,6 @@ export class GroupedBarChartComponent implements OnInit {
   }
 
   constructor(private apiService: ApiService) {
-    /*Object.assign(this, {multi});*/
   }
 
   onSelect(data): void {

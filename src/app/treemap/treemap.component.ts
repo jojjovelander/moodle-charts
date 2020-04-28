@@ -38,7 +38,7 @@ export class TreemapComponent implements OnInit {
   }
 
   labelFormatting(c) {
-    return `${(c.label)} Population`;
+    return `${(c.label)} Events`;
   }
 
 }

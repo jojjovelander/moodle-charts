@@ -11,8 +11,12 @@ import {ApiService} from './api.service';
 import {HttpClientModule} from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TreemapComponent } from './treemap/treemap.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
 
 const appRoutes: Routes = [
+  {path: 'assignment-grades', component: AssignmentGradeComponent},
+  {path: 'bar-chart', component: BarChartComponent},
   {path: 'grouped-bar-chart', component: GroupedBarChartComponent},
   {path: 'treemap', component: TreemapComponent},
   {path: '**', component: DashboardComponent}
@@ -23,7 +27,9 @@ const appRoutes: Routes = [
     AppComponent,
     GroupedBarChartComponent,
     DashboardComponent,
-    TreemapComponent
+    TreemapComponent,
+    BarChartComponent,
+    AssignmentGradeComponent
   ],
   imports: [
     BrowserModule,

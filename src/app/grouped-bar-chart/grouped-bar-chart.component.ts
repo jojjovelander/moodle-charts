@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {multi} from '../shared/multi';
+import {ApiService} from '../api.service';
+
+interface GroupedBarChartData {
+  name: string;
+  series: SeriesData[];
+}
+
+interface SeriesData {
+  name: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-grouped-bar-chart',
@@ -11,7 +21,7 @@ import {multi} from '../shared/multi';
 
 export class GroupedBarChartComponent implements OnInit {
 
-  multi: any[];
+  multi: GroupedBarChartData[];
   view: any[] = [700, 400];
 
   // options
@@ -20,7 +30,7 @@ export class GroupedBarChartComponent implements OnInit {
   gradient = true;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Assigments';
+  xAxisLabel = 'Assignments';
   showYAxisLabel = true;
   yAxisLabel = 'Grade';
   legendTitle = 'Years';
@@ -28,10 +38,16 @@ export class GroupedBarChartComponent implements OnInit {
   colorScheme = 'flame';
 
   ngOnInit(): void {
+    this.apiService.getUserGradeItemsByCourse().subscribe(
+      data => {
+        this.multi = JSON.parse(data.toString()) as GroupedBarChartData[];
+        console.log(this.multi);
+      }
+    );
   }
 
-  constructor() {
-    Object.assign(this, {multi});
+  constructor(private apiService: ApiService) {
+    /*Object.assign(this, {multi});*/
   }
 
   onSelect(data): void {

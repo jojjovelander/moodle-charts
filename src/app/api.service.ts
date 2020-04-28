@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 
@@ -6,41 +6,35 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-    TOKEN = 'd8b7fa8fe26b029698b4344971ffd3d3';
-    HOST = 'http://localhost:8000/webservice/rest/server.php?wstoken=';
+  TOKEN = 'd8b7fa8fe26b029698b4344971ffd3d3';
+  HOST = 'http://localhost:8000/webservice/rest/server.php?wstoken=';
 
-    private _userId: string;
+  userId: string;
+  courseId: string;
 
-    get userId() {
-        return this._userId;
-    }
+  constructor(private httpClient: HttpClient) {
+  }
 
-    set userId(value: string) {
-        this._userId = value;
-    }
+  public getTitle() {
+    return this.httpClient.get(`${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_hello_world`);
+  }
 
-  constructor(private httpClient: HttpClient) { }
+  public getMockData() {
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_mock_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    console.log(url);
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.get(url);
+  }
 
-    public getTitle() {
-        return this.httpClient.get(`${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_hello_world`);
-    }
+  public getBubbleData() {
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_bubble_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    console.log(url);
+    return this.httpClient.get(url);
+  }
 
-    public getMockData(courseId: number) {
-        const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_mock_data&courseid=${courseId}&userid=${this.userId}`;
-        console.log(url);
-        // tslint:disable-next-line:max-line-length
-        return this.httpClient.get(url);
-    }
-
-    public getBubbleData(courseId: number) {
-        const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_bubble_data&courseid=${courseId}&userid=${this.userId}`;
-        console.log(url);
-        return this.httpClient.get(url);
-    }
-
-    public getUserGradeItemsByCourse(courseId: number) {
-        const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_user_grade_items_by_course&courseid=${courseId}&userid=${this.userId}`;
-        console.log(url);
-        return this.httpClient.get(url);
-    }
+  public getUserGradeItemsByCourse() {
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_user_grade_items_by_course&courseid=${(this.courseId)}&userid=${this.userId}`;
+    console.log(url);
+    return this.httpClient.get(url);
+  }
 }

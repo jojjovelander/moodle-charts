@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
+      // TODO
+      this.apiService.courseId = params.id;
       console.log(params);
     });
   }

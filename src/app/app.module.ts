@@ -10,9 +10,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {ApiService} from './api.service';
 import {HttpClientModule} from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TreemapComponent } from './treemap/treemap.component';
 
 const appRoutes: Routes = [
   {path: 'grouped-bar-chart', component: GroupedBarChartComponent},
+  {path: 'treemap', component: TreemapComponent},
   {path: '**', component: DashboardComponent}
 ];
 
@@ -20,7 +22,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     GroupedBarChartComponent,
-    DashboardComponent
+    DashboardComponent,
+    TreemapComponent
   ],
   imports: [
     BrowserModule,

@@ -34,6 +34,7 @@ export class GroupedBarChartComponent implements OnInit {
   showYAxisLabel = true;
   yAxisLabel = 'Grade';
   legendTitle = 'Years';
+  noBarWhenZero = false;
 
   colorScheme = 'flame';
 

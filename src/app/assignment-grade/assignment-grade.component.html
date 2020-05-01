@@ -1,1 +1,13 @@
-<app-bar-chart *ngFor="let assignment of assignments; let i = index" [assigmentNumber]="i + 1" [chartData]="assignment"></app-bar-chart>
+<!--
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Assignment Grades</mat-card-title>
+    <mat-card-subtitle>These graphs show some innerseting stuffs...</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+  </mat-card-content>
+</mat-card>
+-->
+
+    <app-bar-chart *ngFor="let assignment of assignments; let i = index" [assigmentNumber]="i + 1" [chartData]="assignment"></app-bar-chart>

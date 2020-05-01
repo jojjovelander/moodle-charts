@@ -13,9 +13,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TreemapComponent } from './treemap/treemap.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import { AdvancedPieChartComponent } from './advanced-pie-chart/advanced-pie-chart.component';
 
 const appRoutes: Routes = [
   {path: 'assignment-grades', component: AssignmentGradeComponent},
+  {path: 'advanced-pie-chart', component: AdvancedPieChartComponent},
   {path: 'bar-chart', component: BarChartComponent},
   {path: 'grouped-bar-chart', component: GroupedBarChartComponent},
   {path: 'treemap', component: TreemapComponent},
@@ -29,14 +33,17 @@ const appRoutes: Routes = [
     DashboardComponent,
     TreemapComponent,
     BarChartComponent,
-    AssignmentGradeComponent
+    AssignmentGradeComponent,
+    AdvancedPieChartComponent
   ],
   imports: [
     BrowserModule,
     NgxChartsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatListModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

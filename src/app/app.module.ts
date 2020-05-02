@@ -9,15 +9,18 @@ import {GroupedBarChartComponent} from './grouped-bar-chart/grouped-bar-chart.co
 import {RouterModule, Routes} from '@angular/router';
 import {ApiService} from './api.service';
 import {HttpClientModule} from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TreemapComponent } from './treemap/treemap.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
-import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {TreemapComponent} from './treemap/treemap.component';
+import {BarChartComponent} from './bar-chart/bar-chart.component';
+import {AssignmentGradeComponent} from './assignment-grade/assignment-grade.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
-import { AdvancedPieChartComponent } from './advanced-pie-chart/advanced-pie-chart.component';
+import {AdvancedPieChartComponent} from './advanced-pie-chart/advanced-pie-chart.component';
+import {GeolocationComponent} from './geolocation/geolocation.component';
+import {GoogleMapsModule} from '@angular/google-maps';
 
 const appRoutes: Routes = [
+  {path: 'maps', component: GeolocationComponent},
   {path: 'assignment-grades', component: AssignmentGradeComponent},
   {path: 'advanced-pie-chart', component: AdvancedPieChartComponent},
   {path: 'bar-chart', component: BarChartComponent},
@@ -34,7 +37,8 @@ const appRoutes: Routes = [
     TreemapComponent,
     BarChartComponent,
     AssignmentGradeComponent,
-    AdvancedPieChartComponent
+    AdvancedPieChartComponent,
+    GeolocationComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    GoogleMapsModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

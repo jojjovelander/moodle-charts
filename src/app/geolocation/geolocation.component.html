@@ -1,15 +1,1 @@
-<google-map height="400px"
-            width="750px"
-            [center]="center"
-            [zoom]="zoom"
-            (mapClick)="addMarker($event)"
-            (mapMousemove)="move($event)"
-            (mapRightclick)="removeLastMarker()">
-  <map-marker #marker
-              *ngFor="let markerProperties of markers"
-              [position]="markerProperties.position"
-              [label]="markerProperties.label"
-              [options]="markerOptions"
-              (mapClick)="openInfoWindow(marker)"></map-marker>
-  <map-info-window>{{currentCount}}</map-info-window>
-</google-map>
+<div #mapContainer id="map"></div>

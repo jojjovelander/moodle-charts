@@ -1,10 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MapInfoWindow, MapMarker} from '@angular/google-maps';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../api.service';
 import {GeolocationService} from '../geolocation.service';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {forkJoin, from, Observable} from 'rxjs';
-import {conditionallyCreateMapObjectLiteral} from '@angular/compiler/src/render3/view/util';
+import {mergeMap, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 interface UserIPData {
   ip: string;
@@ -15,6 +13,10 @@ interface UserIPData {
 interface Coordinates {
   latitude: number;
   longitude: number;
+}
+
+interface CustomInfoWindow {
+  customContent: string;
 }
 
 interface OurMapMarkers {
@@ -32,19 +34,76 @@ interface SomeRandomObject {
   templateUrl: './geolocation.component.html',
   styleUrls: ['./geolocation.component.css']
 })
-export class GeolocationComponent implements OnInit {
-
-  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
-
-  center = {lat: 24, lng: 12};
-  markerOptions = {draggable: false};
-  markers: OurMapMarkers[] = [];
-  zoom = 4;
-  display?: google.maps.LatLngLiteral;
-  private userIPData: UserIPData[];
-  currentCount: google.maps.MarkerLabel;
+export class GeolocationComponent implements OnInit, AfterViewInit {
 
   constructor(private apiService: ApiService, private geolocationService: GeolocationService) {
+  }
+
+  @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
+  map: google.maps.Map;
+
+  // Coordinates to set the center of the map
+  coordinates = new google.maps.LatLng(56.8524919, 14.8234066);  // Default to LNU
+
+  mapOptions: google.maps.MapOptions = {
+    center: this.coordinates,
+    zoom: 9
+  };
+
+  latest = 0;
+
+  ngOnInit(): void {
+  }
+
+  private isLatestTimestamp(timecreated: number): boolean {
+    console.log(`timecreated=${timecreated}, latest=${this.latest}, isLatest=${timecreated > this.latest}`);
+    if (timecreated > this.latest) {
+      this.latest = timecreated;
+      return true;
+    }
+    return false;
+  }
+
+  private loadMarkers() {
+    this.apiService.getUserIPData().pipe(
+      tap(console.log),
+      mergeMap(x => this.getData(x)))
+      .subscribe(results => {
+        console.log(results);
+
+        if (results.coords.latitude == null || results.coords.longitude == null) {
+          return;
+        }
+
+        const markerData = {
+          position: new google.maps.LatLng(results.coords.latitude, results.coords.longitude),
+          map: this.map,
+          title: `Hits=${results.ipData.count} <p>Last Accessed=${new Date(results.ipData.timecreated * 1000).toLocaleDateString('en-US')}</p>`,
+        };
+
+        const marker = new google.maps.Marker({
+          ...markerData
+        });
+
+        // creating a new info window with markers info
+        const infoWindow = new google.maps.InfoWindow({
+          content: marker.getTitle()
+        });
+
+        // Add click event to open info window on marker
+        marker.addListener('click', () => {
+          infoWindow.open(marker.getMap(), marker);
+        });
+
+        // Adding marker to google map
+        marker.setMap(this.map);
+
+        const latest = this.isLatestTimestamp(results.ipData.timecreated);
+        if (latest) {
+          console.log('kjhkjhk');
+          this.map.setCenter(new google.maps.LatLng(markerData.position.lat(), markerData.position.lng()));
+        }
+      });
   }
 
   private getData(param): Observable<SomeRandomObject> {
@@ -52,52 +111,14 @@ export class GeolocationComponent implements OnInit {
     return this.geolocationService.getLocationData(param);
   }
 
-  ngOnInit(): void {
-    this.apiService.getUserIPData().pipe(
-      tap(console.log),
-      mergeMap(x => this.getData(x)))
-      .subscribe(results => {
-        console.log(results);
-        // tslint:disable-next-line:max-line-length
-        const test = {position: new google.maps.LatLng(results.coords.latitude, results.coords.longitude, false).toJSON(), label: results.ipData.count.toString()} as OurMapMarkers;
-        this.markers.push(test);
-      /*const infoWindow = new google.maps.InfoWindow({
-        content: this.marker.getTitle()
-      });
-      infoWindow.open(this.marker.getMap(), this.marker);*/
-    });
-
-    /*this.apiService.getUserIPData()
-      .pipe(
-        tap(console.log),
-        mergeMap(ipDataArray => from(ipDataArray).pipe(map(ipData => this.getData(ipData)))),
-        mergeMap(result => result)
-      ).subscribe(
-      data => {
-        const test = new google.maps.LatLng(data.latitude, data.longitude, false).toJSON();
-        this.markerPositions.push(test);
-
-        this.infoWindow.options = {content: `Here we are`};
-        console.log(data);
-      });*/
+  ngAfterViewInit(): void {
+    this.mapInitializer();
   }
 
-  private addMarker(event: google.maps.MouseEvent) {
-    this.markers.push({position: event.latLng.toJSON(), label: 'ANOTHER TESTSE'} as OurMapMarkers);
-  }
+  private mapInitializer(): void {
+    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
 
-  private move(event: google.maps.MouseEvent) {
-    this.display = event.latLng.toJSON();
+    // Adding other markers
+    this.loadMarkers();
   }
-
-  private openInfoWindow(marker: MapMarker) {
-    console.log(marker);
-    this.currentCount = marker.getLabel();
-    this.infoWindow.open(marker);
-  }
-
-  private removeLastMarker() {
-    this.markers.pop();
-  }
-
 }

@@ -11,7 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {TreemapComponent} from './treemap/treemap.component';
 import {BarChartComponent} from './bar-chart/bar-chart.component';
-import {AssignmentGradeComponent} from './assignment-grade/assignment-grade.component';
+import {AssignmentsGradesComponent} from './assignments-grades/assignments-grades.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {AdvancedPieChartComponent} from './advanced-pie-chart/advanced-pie-chart.component';
@@ -23,7 +23,7 @@ import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
   {path: 'maps', component: GeolocationComponent},
-  {path: 'assignment-grades', component: AssignmentGradeComponent},
+  {path: 'assignments-grades', component: AssignmentsGradesComponent},
   {path: 'advanced-pie-chart', component: AdvancedPieChartComponent},
   {path: 'bar-chart', component: BarChartComponent},
   {path: 'grouped-bar-chart', component: GroupedBarChartComponent},
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     TreemapComponent,
     BarChartComponent,
-    AssignmentGradeComponent,
+    AssignmentsGradesComponent,
     AdvancedPieChartComponent,
     GeolocationComponent
   ],

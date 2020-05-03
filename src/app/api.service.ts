@@ -22,11 +22,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getTitle() {
-    return this.httpClient.get(`${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_hello_world`);
-  }
-
-  public getMockData() {
+  public getAssignmentsGrades() {
     const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_mock_data&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);
     // tslint:disable-next-line:max-line-length

@@ -1,21 +1,21 @@
 <mat-card>
   <div id="chart-parent">
-  <ngx-charts-bar-vertical-2d
-    [scheme]="colorScheme"
-    [results]="multi"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [legendTitle]="legendTitle"
-    [noBarWhenZero]="noBarWhenZero"
-    (select)="onSelect($event)"
-    (activate)="onActivate($event)"
-    (deactivate)="onDeactivate($event)">
-  </ngx-charts-bar-vertical-2d>
+    <ngx-charts-bar-vertical-2d
+      [scheme]="colorScheme"
+      [results]="multi"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [legendTitle]="legendTitle"
+      [noBarWhenZero]="noBarWhenZero"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)">
+    </ngx-charts-bar-vertical-2d>
   </div>
 </mat-card>

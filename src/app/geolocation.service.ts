@@ -1,20 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {UserIPData} from './user-ipdata';
+import {Coordinates} from './coordinates';
+import {Observable} from 'rxjs';
 
-interface UserIPData {
-  ip: string;
-  timecreated: number;
-  count: number;
-}
-interface Coordinates {
-  latitude: number;
-  longitude: number;
-  hits: number;
-}
 
-interface SomeRandomObject {
+interface CustomMarkerData {
   coords: Coordinates;
   ipData: UserIPData;
 }
@@ -29,11 +21,11 @@ export class GeolocationService {
   constructor(private httpClient: HttpClient) {
   }
 
-  private static buildResponse(coords: Coordinates, ipData: UserIPData): SomeRandomObject {
+  private static buildResponse(coords: Coordinates, ipData: UserIPData): CustomMarkerData {
     return {coords, ipData};
   }
 
-  public getLocationData(userIPData: UserIPData)/*: Observable<Coordinates>*/ {
+  public getLocationData(userIPData: UserIPData): Observable<CustomMarkerData> {
     console.log(userIPData);
     const test = userIPData as UserIPData;
     const url = `${this.HOST}${test.ip}${this.TOKEN}`;

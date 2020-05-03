@@ -3,31 +3,8 @@ import {ApiService} from '../api.service';
 import {GeolocationService} from '../geolocation.service';
 import {mergeMap, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {CustomMarkerData} from '../custom-marker-data';
 
-interface UserIPData {
-  ip: string;
-  timecreated: number;
-  count: number;
-}
-
-interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
-
-interface CustomInfoWindow {
-  customContent: string;
-}
-
-interface OurMapMarkers {
-  position: google.maps.LatLngLiteral;
-  label: string;
-}
-
-interface SomeRandomObject {
-  coords: Coordinates;
-  ipData: UserIPData;
-}
 
 @Component({
   selector: 'app-geolocation',
@@ -56,7 +33,7 @@ export class GeolocationComponent implements OnInit, AfterViewInit {
   }
 
   private isLatestTimestamp(timecreated: number): boolean {
-    console.log(`timecreated=${timecreated}, latest=${this.latest}, isLatest=${timecreated > this.latest}`);
+    /*console.log(`timecreated=${timecreated}, latest=${this.latest}, isLatest=${timecreated > this.latest}`);*/
     if (timecreated > this.latest) {
       this.latest = timecreated;
       return true;
@@ -98,16 +75,15 @@ export class GeolocationComponent implements OnInit, AfterViewInit {
         // Adding marker to google map
         marker.setMap(this.map);
 
+        // Center the map on the latest location
         const latest = this.isLatestTimestamp(results.ipData.timecreated);
         if (latest) {
-          console.log('kjhkjhk');
           this.map.setCenter(new google.maps.LatLng(markerData.position.lat(), markerData.position.lng()));
         }
       });
   }
 
-  private getData(param): Observable<SomeRandomObject> {
-    console.log(param);
+  private getData(param): Observable<CustomMarkerData> {
     return this.geolocationService.getLocationData(param);
   }
 

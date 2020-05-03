@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
+import {TreemapData} from '../treemap-data';
 
-interface TreemapData {
-  name: string;
-  value: number;
-}
 
 @Component({
   selector: 'app-advanced-pie-chart',

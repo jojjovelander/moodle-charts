@@ -1,4 +1,4 @@
-export interface TreemapData {
+export interface PieChartData {
   name: string;
   value: number;
 }

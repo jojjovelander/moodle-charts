@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
+import {PieChartData} from '../pie-chart-data';
 
-interface TreemapData {
-  name: string;
-  value: number;
-}
 
 @Component({
   selector: 'app-treemap',
@@ -15,22 +12,17 @@ export class TreemapComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  single: TreemapData[] = [{name: 'No events', value: 0}];
-  view: any[] = [700, 400];
+  single: PieChartData[] = [{name: 'No events', value: 0}];
 
   // options
   gradient = false;
   animations = true;
-
   colorScheme = 'flame';
 
   ngOnInit(): void {
-    this.apiService.getBubbleData().subscribe(
-      data => {
-        this.single = JSON.parse(data.toString()) as TreemapData[];
-        console.log(this.single);
-      }
-    );
+    this.apiService.getPieChartData().subscribe(
+      data => { this.single = data; }
+      );
   }
 
   onSelect(event) {
@@ -40,5 +32,4 @@ export class TreemapComponent implements OnInit {
   labelFormatting(c) {
     return `${(c.label)} Events`;
   }
-
 }

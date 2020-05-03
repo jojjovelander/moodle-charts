@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
-import {TreemapData} from '../treemap-data';
+import {PieChartData} from '../pie-chart-data';
 
 
 @Component({
@@ -10,10 +10,10 @@ import {TreemapData} from '../treemap-data';
 })
 export class AdvancedPieChartComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {
+  }
 
-  single: TreemapData[];
-  view: any[] = [700, 400];
+  single: PieChartData[];
 
   // options
   gradient = true;
@@ -24,10 +24,9 @@ export class AdvancedPieChartComponent implements OnInit {
   colorScheme = 'flame';
 
   ngOnInit(): void {
-    this.apiService.getBubbleData().subscribe(
+    this.apiService.getPieChartData().subscribe(
       data => {
-        this.single = JSON.parse(data.toString()) as TreemapData[];
-        console.log(this.single);
+        this.single = data;
       }
     );
   }
@@ -44,4 +43,3 @@ export class AdvancedPieChartComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 }
-

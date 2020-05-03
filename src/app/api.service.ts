@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {from, Observable} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
+import {PieChartData} from './pie-chart-data';
 
 interface UserIPData {
   ip: string;
@@ -29,10 +30,10 @@ export class ApiService {
     return this.httpClient.get(url);
   }
 
-  public getBubbleData() {
+  public getPieChartData() {
     const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_bubble_data&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);
-    return this.httpClient.get(url);
+    return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as PieChartData[]));
   }
 
   public getUserGradeItemsByCourse() {

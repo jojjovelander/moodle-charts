@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
@@ -18,6 +17,9 @@ import {MatListModule} from '@angular/material/list';
 import {AdvancedPieChartComponent} from './advanced-pie-chart/advanced-pie-chart.component';
 import {GeolocationComponent} from './geolocation/geolocation.component';
 import {GoogleMapsModule} from '@angular/google-maps';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSliderModule} from '@angular/material/slider';
+import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
   {path: 'maps', component: GeolocationComponent},
@@ -48,7 +50,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatCardModule,
     MatListModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatListModule,
+    MatGridListModule,
+    MatSliderModule,
+    NgbModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

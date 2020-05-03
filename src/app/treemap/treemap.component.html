@@ -1,8 +1,10 @@
-<ngx-charts-tree-map
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="single"
-  [gradient]="gradient"
-  [animations]="animations"
-  >
-</ngx-charts-tree-map>
+<mat-card>
+  <div id="chart-parent">
+  <ngx-charts-tree-map
+    [scheme]="colorScheme"
+    [results]="single"
+    [gradient]="gradient"
+    [animations]="animations">
+  </ngx-charts-tree-map>
+</div>
+</mat-card>

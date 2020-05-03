@@ -1,19 +1,20 @@
-<mat-list>
-  <div mat-subheader>Grades</div>
-  <mat-list-item>
-    <div mat-line><app-grouped-bar-chart></app-grouped-bar-chart></div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <div mat-subheader>Events</div>
-  <mat-list-item>
-    <div mat-line><app-treemap></app-treemap></div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <div mat-subheader>Assignment Grades </div>
-  <mat-list-item>
-    <div mat-line><app-assignment-grade></app-assignment-grade></div>
-  </mat-list-item>
-  <mat-list-item>
-    <div mat-line><app-assignment-grade></app-assignment-grade></div>
-  </mat-list-item>
-</mat-list>
+<!--<mat-list role="list">
+  <mat-list-item role="listitem"><app-grouped-bar-chart></app-grouped-bar-chart></mat-list-item>
+  <mat-list-item role="listitem"><app-treemap></app-treemap></mat-list-item>
+  <mat-list-item role="listitem"><app-assignment-grade></app-assignment-grade></mat-list-item>
+  <mat-list-item role="listitem"> <app-geolocation></app-geolocation></mat-list-item>
+</mat-list>-->
+
+<div class="container">
+  <div class="row">
+    <div class="col"><app-grouped-bar-chart></app-grouped-bar-chart></div>
+    <div class="col"><app-treemap></app-treemap></div>
+    <div class="w-100"></div>
+    <div class="col"><app-assignment-grade></app-assignment-grade></div>
+    <div class="w-100"></div>
+    <div class="col"><app-geolocation></app-geolocation></div>
+    <div class="w-100"></div>
+    <div class="col"><app-advanced-pie-chart></app-advanced-pie-chart></div>
+    <div class="w-100"></div>
+  </div>
+</div>

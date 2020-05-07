@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {ApiService} from '../api.service';
+import {ChartBase} from '../chart-base';
 
 interface GroupedBarChartData {
   name: string;
@@ -19,7 +20,7 @@ interface SeriesData {
   styleUrls: ['./grouped-bar-chart.component.css']
 })
 
-export class GroupedBarChartComponent implements OnInit {
+export class GroupedBarChartComponent extends ChartBase implements OnInit {
 
   multi: GroupedBarChartData[];
   view: any[] = [700, 400];
@@ -39,7 +40,7 @@ export class GroupedBarChartComponent implements OnInit {
   colorScheme = 'flame';
 
   ngOnInit(): void {
-    this.apiService.getUserGradeItemsByCourse().subscribe(
+    super.getApiService().getUserGradeItemsByCourse().subscribe(
       data => {
         this.multi = JSON.parse(data.toString()) as GroupedBarChartData[];
         console.log(this.multi);
@@ -47,7 +48,8 @@ export class GroupedBarChartComponent implements OnInit {
     );
   }
 
-  constructor(private apiService: ApiService) {
+  constructor(apiService: ApiService) {
+    super(apiService);
   }
 
   onSelect(data): void {

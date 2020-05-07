@@ -4,6 +4,7 @@ import {GeolocationService} from '../geolocation.service';
 import {mergeMap, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {CustomMarkerData} from '../custom-marker-data';
+import {ChartBase} from '../chart-base';
 
 
 @Component({
@@ -11,9 +12,10 @@ import {CustomMarkerData} from '../custom-marker-data';
   templateUrl: './geolocation.component.html',
   styleUrls: ['./geolocation.component.css']
 })
-export class GeolocationComponent implements OnInit, AfterViewInit {
+export class GeolocationComponent extends ChartBase implements OnInit, AfterViewInit {
 
-  constructor(private apiService: ApiService, private geolocationService: GeolocationService) {
+  constructor(apiService: ApiService, private geolocationService: GeolocationService) {
+    super(apiService);
   }
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
@@ -42,11 +44,11 @@ export class GeolocationComponent implements OnInit, AfterViewInit {
   }
 
   private loadMarkers() {
-    this.apiService.getUserIPData().pipe(
-      tap(console.log),
+    super.getApiService().getUserIPData().pipe(
+      /*tap(console.log),*/
       mergeMap(x => this.getData(x)))
       .subscribe(results => {
-        console.log(results);
+        /*console.log(results);*/
 
         if (results.coords.latitude == null || results.coords.longitude == null) {
           return;

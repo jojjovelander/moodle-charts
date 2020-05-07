@@ -14,36 +14,36 @@ interface UserIPData {
   providedIn: 'root'
 })
 export class ApiService {
-  TOKEN = 'd8b7fa8fe26b029698b4344971ffd3d3';
+  TOKEN = 'c5f7150439c23ef073b1ae67724a9762';
   HOST = 'http://localhost:8000/webservice/rest/server.php?wstoken=';
 
   userId: string;
   courseId: string;
+  isLinkMode = false;
 
   constructor(private httpClient: HttpClient) {
   }
 
   public getAssignmentsGrades() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_mock_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_assignment_grades&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);
-    // tslint:disable-next-line:max-line-length
     return this.httpClient.get(url);
   }
 
   public getPieChartData() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_bubble_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_events&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);
     return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as PieChartData[]));
   }
 
   public getUserGradeItemsByCourse() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_user_grade_items_by_course&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_grade_items_by_course&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);
     return this.httpClient.get(url);
   }
 
   public getUserIPData(): Observable<UserIPData> {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_wstemplate_get_ip_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_ip_data&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);
     return this.httpClient.get(url).pipe(
       map(data => JSON.parse(data.toString()) as UserIPData[]),

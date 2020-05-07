@@ -10,15 +10,31 @@ import {ApiService} from './api.service';
 })
 export class AppComponent implements OnInit {
 
+  courseId: any;
+
   constructor(el: ElementRef, private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     apiService.userId = el.nativeElement.getAttribute('userId');
+    this.courseId = el.nativeElement.getAttribute('courseId');
+    const start = el.nativeElement.getAttribute('start');
+    if (start != null) {
+      this.router.navigate([start], {queryParams: {id: this.courseId}, skipLocationChange: true}).then((e) => {
+        if (e) {
+          console.log('Navigation is successful!');
+        } else {
+          console.log('Navigation has failed!');
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      // TODO
-      this.apiService.courseId = params.id;
-      console.log(params);
-    });
+    if (this.courseId == null) {
+      this.route.queryParams.subscribe(params => {
+        this.apiService.courseId = params.id;
+      });
+    } else {
+      this.apiService.courseId = this.courseId;
+      this.apiService.isLinkMode = true;
+    }
   }
 }

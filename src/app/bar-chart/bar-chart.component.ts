@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
+import {ChartBase} from '../chart-base';
 
 interface BarChartData {
   name: string;
@@ -11,9 +12,10 @@ interface BarChartData {
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css']
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent extends ChartBase implements OnInit {
 
-  constructor(private apiService: ApiService) {
+  constructor(apiService: ApiService) {
+    super(apiService);
   }
 
   single: any[];

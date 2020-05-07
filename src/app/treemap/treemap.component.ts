@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import {PieChartData} from '../pie-chart-data';
+import {ChartBase} from '../chart-base';
 
 
 @Component({
@@ -8,9 +9,11 @@ import {PieChartData} from '../pie-chart-data';
   templateUrl: './treemap.component.html',
   styleUrls: ['./treemap.component.css']
 })
-export class TreemapComponent implements OnInit {
+export class TreemapComponent extends ChartBase implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(apiService: ApiService) {
+    super(apiService);
+  }
 
   single: PieChartData[] = [{name: 'No events', value: 0}];
 
@@ -20,7 +23,7 @@ export class TreemapComponent implements OnInit {
   colorScheme = 'flame';
 
   ngOnInit(): void {
-    this.apiService.getPieChartData().subscribe(
+    super.getApiService().getPieChartData().subscribe(
       data => { this.single = data; }
       );
   }

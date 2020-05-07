@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {PieChartData} from '../pie-chart-data';
+import {ChartBase} from '../chart-base';
 
 
 @Component({
@@ -8,9 +9,10 @@ import {PieChartData} from '../pie-chart-data';
   templateUrl: './advanced-pie-chart.component.html',
   styleUrls: ['./advanced-pie-chart.component.css']
 })
-export class AdvancedPieChartComponent implements OnInit {
+export class AdvancedPieChartComponent extends ChartBase implements OnInit {
 
-  constructor(private apiService: ApiService) {
+  constructor(apiService: ApiService) {
+    super(apiService);
   }
 
   single: PieChartData[];
@@ -24,7 +26,7 @@ export class AdvancedPieChartComponent implements OnInit {
   colorScheme = 'flame';
 
   ngOnInit(): void {
-    this.apiService.getPieChartData().subscribe(
+    super.getApiService().getPieChartData().subscribe(
       data => {
         this.single = data;
       }

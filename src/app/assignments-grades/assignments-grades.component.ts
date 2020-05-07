@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
+import {ChartBase} from '../chart-base';
 
 interface BarChartData {
   name: string;
@@ -11,15 +12,16 @@ interface BarChartData {
   templateUrl: './assignments-grades.component.html',
   styleUrls: ['./assignments-grades.component.css']
 })
-export class AssignmentsGradesComponent implements OnInit {
+export class AssignmentsGradesComponent extends ChartBase implements OnInit {
 
   assignments: BarChartData[][];
 
-  constructor(private apiService: ApiService) {
+  constructor(apiService: ApiService) {
+    super(apiService);
   }
 
   ngOnInit(): void {
-    this.apiService.getAssignmentsGrades().subscribe(
+    super.getApiService().getAssignmentsGrades().subscribe(
       data => {
         this.assignments = JSON.parse(data.toString()) as BarChartData[][];
       }

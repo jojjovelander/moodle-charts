@@ -1,12 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {ChartBase} from '../chart-base';
-
-interface BarChartData {
-  name: string;
-  value: number;
-}
-
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',

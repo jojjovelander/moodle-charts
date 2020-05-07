@@ -44,6 +44,19 @@ export class BarChartComponent extends ChartBase implements OnInit {
     this.xAxisLabel = 'Assignment #' + this.assigmentNumber;
   }
 
+  barCustomColors() {
+    const result: any[] = [];
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.single.length; i++) {
+      if (this.single[i].selected) {
+        result.push({name: this.single[i].name, value: '#0000ff'});
+      }else {
+        result.push({name: this.single[i].name, value: '#00ff00'});
+      }
+    }
+    return result;
+  }
+
   onSelect(event) {
     console.log(event);
   }

@@ -23,7 +23,6 @@ interface SeriesData {
 export class GroupedBarChartComponent extends ChartBase implements OnInit {
 
   multi: GroupedBarChartData[];
-  view: any[] = [700, 400];
 
   // options
   showXAxis = true;
@@ -34,7 +33,7 @@ export class GroupedBarChartComponent extends ChartBase implements OnInit {
   xAxisLabel = 'Assignments';
   showYAxisLabel = true;
   yAxisLabel = 'Grade';
-  legendTitle = 'Years';
+  legendTitle = 'Grade Type';
   noBarWhenZero = false;
 
   colorScheme = 'flame';

@@ -1,18 +1,8 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {ChartBase} from '../chart-base';
+import {SeriesDataset} from '../series-dataset';
 
-interface GroupedBarChartData {
-  name: string;
-  series: SeriesData[];
-}
-
-interface SeriesData {
-  name: string;
-  value: number;
-}
 
 @Component({
   selector: 'app-grouped-bar-chart',
@@ -22,7 +12,7 @@ interface SeriesData {
 
 export class GroupedBarChartComponent extends ChartBase implements OnInit {
 
-  multi: GroupedBarChartData[];
+  multi: SeriesDataset[];
 
   // options
   showXAxis = true;
@@ -41,7 +31,7 @@ export class GroupedBarChartComponent extends ChartBase implements OnInit {
   ngOnInit(): void {
     super.getApiService().getUserGradeItemsByCourse().subscribe(
       data => {
-        this.multi = JSON.parse(data.toString()) as GroupedBarChartData[];
+        this.multi = JSON.parse(data.toString()) as SeriesDataset[];
         console.log(this.multi);
       }
     );

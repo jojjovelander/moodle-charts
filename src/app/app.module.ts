@@ -20,9 +20,11 @@ import {GoogleMapsModule} from '@angular/google-maps';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSliderModule} from '@angular/material/slider';
 import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LineChartComponent } from './line-chart/line-chart.component';
 
 const appRoutes: Routes = [
   {path: 'maps', component: GeolocationComponent},
+  {path: 'line-chart', component: LineChartComponent},
   {path: 'assignments-grades', component: AssignmentsGradesComponent},
   {path: 'advanced-pie-chart', component: AdvancedPieChartComponent},
   {path: 'bar-chart', component: BarChartComponent},
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     BarChartComponent,
     AssignmentsGradesComponent,
     AdvancedPieChartComponent,
-    GeolocationComponent
+    GeolocationComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,

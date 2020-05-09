@@ -12,7 +12,7 @@ export class ChartBase {
 
   @HostListener('click') onMouseEnter() {
     if (this.apiService.isLinkMode) {
-      window.open('/report/graphic/index.php?id=2', '_blank');
+      window.open('/report/analytics_dashboard/index.php?id=' + this.apiService.courseId, '_blank');
     }
   }
 }

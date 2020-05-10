@@ -24,6 +24,7 @@ export class AdvancedPieChartComponent extends ChartBase implements OnInit {
   isDoughnut = false;
 
   colorScheme = 'flame';
+  course: string;
 
   ngOnInit(): void {
     super.getApiService().getPieChartData().subscribe(
@@ -31,6 +32,7 @@ export class AdvancedPieChartComponent extends ChartBase implements OnInit {
         this.single = data;
       }
     );
+    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
   }
 
   onSelect(data): void {

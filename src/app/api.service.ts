@@ -37,6 +37,12 @@ export class ApiService {
     }
   }
 
+  public getOriginData() {
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_origin_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    console.log(url);
+    return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as PieChartData[]));
+  }
+
   public getAssignmentsGrades() {
     const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_assignment_grades&courseid=${(this.courseId)}&userid=${this.userId}`;
     console.log(url);

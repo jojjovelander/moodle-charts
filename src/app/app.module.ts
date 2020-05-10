@@ -21,6 +21,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSliderModule} from '@angular/material/slider';
 import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { OriginPieChartComponent } from './origin-pie-chart/origin-pie-chart.component';
 
 const appRoutes: Routes = [
   {path: 'maps', component: GeolocationComponent},
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     AssignmentsGradesComponent,
     AdvancedPieChartComponent,
     GeolocationComponent,
-    LineChartComponent
+    LineChartComponent,
+    OriginPieChartComponent
   ],
   imports: [
     BrowserModule,

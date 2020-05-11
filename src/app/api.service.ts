@@ -22,6 +22,8 @@ export class ApiService {
   userId: string;
   courseId: string;
   isLinkMode = false;
+  authToken: string;
+
   private generalInfo: GeneralInfo;
 
   constructor(private httpClient: HttpClient) {
@@ -29,7 +31,7 @@ export class ApiService {
 
   public getGeneralInfo(): Observable<GeneralInfo> {
     if (this.generalInfo == null){
-      const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_general_info&courseid=${(this.courseId)}&userid=${this.userId}`;
+      const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_general_info&t=${this.authToken}`;
       console.log(url);
       return this.httpClient.get(url).pipe(map(data => this.generalInfo = JSON.parse(data.toString()) as GeneralInfo));
     } else {
@@ -38,37 +40,37 @@ export class ApiService {
   }
 
   public getOriginData() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_origin_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_origin_data&t=${this.authToken}`;
     console.log(url);
     return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as PieChartData[]));
   }
 
   public getAssignmentsGrades() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_assignment_grades&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_assignment_grades&t=${this.authToken}`;
     console.log(url);
     return this.httpClient.get(url);
   }
 
   public getPieChartData() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_events&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_events&t=${this.authToken}`;
     console.log(url);
     return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as PieChartData[]));
   }
 
   public getUserEventOverTimeData() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_events_over_time&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_events_over_time&t=${this.authToken}`;
     console.log(url);
     return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as SeriesDataset[]));
   }
 
   public getUserGradeItemsByCourse() {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_grade_items_by_course&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_user_grade_items_by_course&t=${this.authToken}`;
     console.log(url);
     return this.httpClient.get(url);
   }
 
   public getUserIPData(): Observable<UserIPData> {
-    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_ip_data&courseid=${(this.courseId)}&userid=${this.userId}`;
+    const url = `${this.HOST}${this.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_ip_data&t=${this.authToken}`;
     console.log(url);
     return this.httpClient.get(url).pipe(
       map(data => JSON.parse(data.toString()) as UserIPData[]),

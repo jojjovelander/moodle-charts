@@ -11,13 +11,16 @@ import {ApiService} from './api.service';
 export class AppComponent implements OnInit {
 
   courseId: any;
+  private token: string;
+  start: string;
 
   constructor(el: ElementRef, private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     apiService.userId = el.nativeElement.getAttribute('userId');
     this.courseId = el.nativeElement.getAttribute('courseId');
-    const start = el.nativeElement.getAttribute('start');
-    if (start != null) {
-      this.router.navigate([start], {queryParams: {id: this.courseId}, skipLocationChange: true}).then((e) => {
+    this.token = el.nativeElement.getAttribute('token');
+    this.start = el.nativeElement.getAttribute('start');
+    if (this.start != null) {
+      this.router.navigate([this.start], {queryParams: {id: this.courseId}, skipLocationChange: true}).then((e) => {
         if (e) {
           console.log('Navigation is successful!');
         } else {
@@ -28,7 +31,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.courseId == null) {
+    if (this.token != null) {
+      this.apiService.authToken = this.token;
+    }
+    if (this.start == null) {
       this.route.queryParams.subscribe(params => {
         this.apiService.courseId = params.id;
       });

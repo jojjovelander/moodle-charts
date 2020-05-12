@@ -59,7 +59,7 @@ export class GeolocationComponent extends ChartBase implements OnInit, AfterView
         const markerData = {
           position: new google.maps.LatLng(results.coords.latitude, results.coords.longitude),
           map: this.map,
-          title: `Hits=${results.ipData.count} <p>Last Accessed=${new Date(results.ipData.timecreated * 1000).toLocaleDateString('en-US')}</p>`,
+          title: `Times accessed: <strong>${results.ipData.count}</strong><p>Last accessed: <strong>${new Date(results.ipData.timecreated * 1000).toLocaleDateString('en-US')}</strong></p>`,
         };
 
         const marker = new google.maps.Marker({

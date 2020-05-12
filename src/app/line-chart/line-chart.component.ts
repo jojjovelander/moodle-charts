@@ -20,10 +20,11 @@ export class LineChartComponent extends ChartBase implements OnInit {
   showYAxisLabel = true;
   showXAxisLabel = true;
   xAxisLabel = 'Date';
-  yAxisLabel = '# Of Events';
+  yAxisLabel = '# of Events';
   timeline = true;
 
   colorScheme = 'flame';
+  course: string;
 
   constructor(apiService: ApiService) {
     super(apiService);
@@ -35,6 +36,7 @@ export class LineChartComponent extends ChartBase implements OnInit {
         this.multi = data;
       }
     );
+    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
   }
 
   onSelect(data): void {

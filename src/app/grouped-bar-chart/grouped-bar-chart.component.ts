@@ -27,6 +27,7 @@ export class GroupedBarChartComponent extends ChartBase implements OnInit {
   noBarWhenZero = false;
 
   colorScheme = 'flame';
+  course: string;
 
   ngOnInit(): void {
     super.getApiService().getUserGradeItemsByCourse().subscribe(
@@ -35,12 +36,12 @@ export class GroupedBarChartComponent extends ChartBase implements OnInit {
         console.log(this.multi);
       }
     );
+    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
   }
 
   constructor(apiService: ApiService) {
     super(apiService);
   }
-
   onSelect(data): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }

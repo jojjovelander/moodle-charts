@@ -19,8 +19,8 @@ export class LineChartComponent extends ChartBase implements OnInit {
   yAxis = true;
   showYAxisLabel = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Year';
-  yAxisLabel = 'Population';
+  xAxisLabel = 'Date';
+  yAxisLabel = '# Of Events';
   timeline = true;
 
   colorScheme = 'flame';

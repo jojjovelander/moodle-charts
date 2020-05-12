@@ -19,13 +19,14 @@ export class AssignmentsGradesComponent extends ChartBase implements OnInit {
   constructor(apiService: ApiService) {
     super(apiService);
   }
-
+  course: string;
   ngOnInit(): void {
     super.getApiService().getAssignmentsGrades().subscribe(
       data => {
         this.assignments = JSON.parse(data.toString()) as BarChartData[][];
       }
     );
+    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
   }
 
 }

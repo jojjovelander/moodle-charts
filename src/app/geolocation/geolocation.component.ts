@@ -17,6 +17,7 @@ export class GeolocationComponent extends ChartBase implements OnInit, AfterView
   constructor(apiService: ApiService, private geolocationService: GeolocationService) {
     super(apiService);
   }
+  course: string;
 
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
@@ -32,6 +33,7 @@ export class GeolocationComponent extends ChartBase implements OnInit, AfterView
   latest = 0;
 
   ngOnInit(): void {
+    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
   }
 
   private isLatestTimestamp(timecreated: number): boolean {

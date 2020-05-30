@@ -19,9 +19,15 @@ import {GeolocationComponent} from './geolocation/geolocation.component';
 import {GoogleMapsModule} from '@angular/google-maps';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSliderModule} from '@angular/material/slider';
-import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LineChartComponent } from './line-chart/line-chart.component';
-import { OriginPieChartComponent } from './origin-pie-chart/origin-pie-chart.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LineChartComponent} from './line-chart/line-chart.component';
+import {OriginPieChartComponent} from './origin-pie-chart/origin-pie-chart.component';
+import {QuestionnaireComponent} from './questionnaire/questionnaire.component';
+import {QuestionnaireService} from './questionnaire.service';
+import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {environment} from '../environments/environment';
 
 const appRoutes: Routes = [
   {path: 'maps', component: GeolocationComponent},
@@ -31,6 +37,7 @@ const appRoutes: Routes = [
   {path: 'bar-chart', component: BarChartComponent},
   {path: 'grouped-bar-chart', component: GroupedBarChartComponent},
   {path: 'treemap', component: TreemapComponent},
+  {path: 'questionnaire', component: QuestionnaireComponent},
   {path: '**', component: DashboardComponent}
 ];
 
@@ -45,9 +52,12 @@ const appRoutes: Routes = [
     AdvancedPieChartComponent,
     GeolocationComponent,
     LineChartComponent,
-    OriginPieChartComponent
+    OriginPieChartComponent,
+    QuestionnaireComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     BrowserModule,
     NgxChartsModule,
     BrowserAnimationsModule,
@@ -59,9 +69,10 @@ const appRoutes: Routes = [
     MatListModule,
     MatGridListModule,
     MatSliderModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, QuestionnaireService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

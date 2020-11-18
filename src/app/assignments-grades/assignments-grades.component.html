@@ -1,18 +1,38 @@
 <mat-card>
   <h2>Assignment results for all students in {{course}}</h2>
-  <p>Your result is highlighted in green!</p>
+  <p>Your grades are highlighted in green!</p>
   <div id="chart-parent">
     <div class="container">
-      <div class="row">
-        <ng-container *ngFor="let assignment of assignments; let i = index">
+      <ng-container *ngFor="let assignment of assignments; let i = index">
+        <div class="row">
           <div class="col">
-            <app-bar-chart [assigmentNumber]="i + 1" [chartData]="assignment"></app-bar-chart>
+            <p></p>
+            <ngx-charts-bar-vertical
+              [scheme]="colorScheme"
+              [results]="assignment.grades"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [legend]="showLegend"
+              [legendPosition]="legendPosition"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="this.formatXAxis(assignment.assignment_name)"
+              [yAxisLabel]="yAxisLabel"
+              [noBarWhenZero]="noBarWhenZero"
+              [customColors]="[{
+              name: this.assignments[i].user_grade,
+              value: '#00ff00'
+              }]"
+              (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+
           </div>
-          <ng-container *ngIf="i % 2 != 0">
+          <!--<ng-container *ngIf="i % 2 != 0">
             <div class="w-100"></div>
-          </ng-container>
-        </ng-container>
-      </div>
+          </ng-container>-->
+        </div>
+      </ng-container>
     </div>
   </div>
 </mat-card>

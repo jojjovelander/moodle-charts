@@ -11,7 +11,7 @@ import {ApiService} from './api.service';
 export class AppComponent implements OnInit {
 
   courseId: any;
-  private token: string;
+  private readonly token: string;
   start: string;
 
   constructor(el: ElementRef, private route: ActivatedRoute, private router: Router, private apiService: ApiService) {

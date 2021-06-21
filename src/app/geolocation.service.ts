@@ -16,7 +16,7 @@ interface CustomMarkerData {
 })
 export class GeolocationService {
   TOKEN = '?access_key=d158dd9349f6a9e13c46c510acdd26fd';
-  HOST = 'http://api.ipstack.com/';
+  HOST = 'https://api.ipstack.com/';
 
   constructor(private httpClient: HttpClient) {
   }

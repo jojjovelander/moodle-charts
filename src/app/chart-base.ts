@@ -1,7 +1,7 @@
-import {HostListener} from '@angular/core';
+import {Component, HostListener, Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 
-
+@Injectable()
 export class ChartBase {
 
   constructor(private apiService: ApiService) {}

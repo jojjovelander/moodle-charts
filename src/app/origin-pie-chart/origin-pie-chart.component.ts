@@ -27,7 +27,7 @@ export class OriginPieChartComponent extends ChartBase implements OnInit {
 
   ngOnInit(): void {
     super.getApiService().getOriginData().subscribe(data => this.single = data);
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe( data => this.course = data.course);
   }
 
   onSelect(data): void {

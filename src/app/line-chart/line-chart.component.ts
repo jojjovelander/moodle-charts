@@ -36,7 +36,7 @@ export class LineChartComponent extends ChartBase implements OnInit {
         this.multi = data;
       }
     );
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe( data => this.course = data.course);
   }
 
   onSelect(data): void {

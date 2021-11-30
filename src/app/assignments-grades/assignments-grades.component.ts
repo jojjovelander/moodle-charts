@@ -58,6 +58,6 @@ export class AssignmentsGradesComponent extends ChartBase implements OnInit {
         console.log(this.assignments);
       }
     );
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe(data => this.course = data.course);
   }
 }

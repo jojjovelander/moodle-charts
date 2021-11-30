@@ -33,7 +33,7 @@ export class GeolocationComponent extends ChartBase implements OnInit, AfterView
   latest = 0;
 
   ngOnInit(): void {
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe( data => this.course = data.course);
   }
 
   private isLatestTimestamp(timecreated: number): boolean {

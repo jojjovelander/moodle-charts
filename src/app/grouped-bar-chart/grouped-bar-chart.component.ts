@@ -36,7 +36,7 @@ export class GroupedBarChartComponent extends ChartBase implements OnInit {
         console.log(this.multi);
       }
     );
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe( data => this.course = data.course);
   }
 
   constructor(apiService: ApiService) {

@@ -42,9 +42,7 @@ export class AssignmentsGradesComponent extends ChartBase implements OnInit {
   showYAxisLabel = true;
   yAxisLabel = '# of students';
   noBarWhenZero = false;
-/*  componentState = ComponentState;
-  currentComponentState:ComponentState = ComponentState.Loading*/
-
+  
   onSelect(event) {
     console.log(event);
   }

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {ChartBase} from '../chart-base';
+
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
@@ -12,9 +13,7 @@ export class BarChartComponent extends ChartBase implements OnInit {
     super(apiService);
   }
 
-  single: any[];
-  multi: any[];
-
+  dataset: any[];
 
   // options
   showXAxis = true;
@@ -43,7 +42,7 @@ export class BarChartComponent extends ChartBase implements OnInit {
   @Input() assigmentNumber;
 
   ngOnInit(): void {
-    this.single = this.chartData;
+    this.dataset = this.chartData;
     this.xAxisLabel = 'Assignment #' + this.assigmentNumber;
   }
 

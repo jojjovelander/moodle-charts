@@ -1,18 +1,34 @@
 <mat-card>
-  <h2>You have access {{course}} from the following device types</h2>
-  <div id="chart-parent">
-    <ngx-charts-pie-chart
-      [scheme]="colorScheme"
-      [results]="single"
-      [gradient]="gradient"
-      [legend]="showLegend"
-      [legendPosition]="legendPosition"
-      [labels]="showLabels"
-      [doughnut]="isDoughnut"
-      (select)="onSelect($event)"
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)"
-    >
-    </ngx-charts-pie-chart>
+  <h2>You have accessed {{course}} from the following device types</h2>
+  <div id="chart-parent" [ngSwitch]="currentComponentState">
+    <ng-container *ngSwitchCase="componentState.Loading">
+      <div class="row">
+        <p>LOADING...</p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="componentState.NoData">
+      <div class="row">
+        <p>No data.</p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="componentState.Error">
+      <div class="row">
+        <p>ERROR :(</p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <ngx-charts-pie-chart
+        [scheme]="colorScheme"
+        [results]="dataset"
+        [gradient]="gradient"
+        [legend]="showLegend"
+        [legendPosition]="legendPosition"
+        [labels]="showLabels"
+        [doughnut]="isDoughnut"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)">
+      </ngx-charts-pie-chart>
+    </ng-container>
   </div>
 </mat-card>

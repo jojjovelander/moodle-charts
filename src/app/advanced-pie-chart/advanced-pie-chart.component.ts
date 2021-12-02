@@ -32,7 +32,7 @@ export class AdvancedPieChartComponent extends ChartBase implements OnInit {
         this.single = data;
       }
     );
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe( data => this.course = data.course);
   }
 
   onSelect(data): void {

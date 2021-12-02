@@ -1,21 +1,42 @@
 <mat-card>
   <h2>Your top 5 most frequently logged events for {{course}}</h2>
-  <div id="chart-parent">
-    <ngx-charts-line-chart
-      [scheme]="colorScheme"
-      [legend]="legend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxis]="xAxis"
-      [yAxis]="yAxis"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [timeline]="timeline"
-      [results]="multi"
-      (select)="onSelect($event)"
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)"
-    >
-    </ngx-charts-line-chart>
+  <div id="chart-parent" [ngSwitch]="currentComponentState">
+    <ng-container *ngSwitchCase="componentState.Loading">
+      <div class="row">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="componentState.NoData">
+      <div class="row">
+        <p>No data.</p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="componentState.Error">
+      <div class="row">
+        <p>ERROR :(</p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <p></p>
+      <ngx-charts-line-chart
+        [scheme]="colorScheme"
+        [legend]="legend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="dataset"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)">
+      </ngx-charts-line-chart>
+    </ng-container>
   </div>
 </mat-card>

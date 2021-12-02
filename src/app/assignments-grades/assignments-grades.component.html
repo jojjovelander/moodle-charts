@@ -2,36 +2,49 @@
   <h2>Assignment results for all students in {{course}}</h2>
   <p>Your grades are highlighted in green!</p>
   <div id="chart-parent">
-    <div class="container">
-      <ng-container *ngFor="let assignment of assignments; let i = index">
+    <div class="container" [ngSwitch]="currentComponentState">
+      <ng-container *ngSwitchCase="componentState.Loading">
         <div class="row">
-          <div class="col">
-            <p></p>
-            <ngx-charts-bar-vertical
-              [scheme]="colorScheme"
-              [results]="assignment.grades"
-              [gradient]="gradient"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [legend]="showLegend"
-              [legendPosition]="legendPosition"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="this.formatXAxis(assignment.assignment_name)"
-              [yAxisLabel]="yAxisLabel"
-              [noBarWhenZero]="noBarWhenZero"
-              [customColors]="[{
+          <p>LOADING...</p>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="componentState.NoData">
+        <div class="row">
+          <p>No data.</p>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="componentState.Error">
+        <div class="row">
+          <p>ERROR :(</p>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngFor="let assignment of assignments; let i = index">
+          <div class="row">
+            <div class="col">
+              <p></p>
+              <ngx-charts-bar-vertical
+                [scheme]="colorScheme"
+                [results]="assignment.grades"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="this.formatXAxis(assignment.assignment_name)"
+                [yAxisLabel]="yAxisLabel"
+                [noBarWhenZero]="noBarWhenZero"
+                [customColors]="[{
               name: this.assignments[i].user_grade,
               value: '#00ff00'
               }]"
-              (select)="onSelect($event)">
-            </ngx-charts-bar-vertical>
-
+                (select)="onSelect($event)">
+              </ngx-charts-bar-vertical>
+            </div>
           </div>
-          <!--<ng-container *ngIf="i % 2 != 0">
-            <div class="w-100"></div>
-          </ng-container>-->
-        </div>
+        </ng-container>
       </ng-container>
     </div>
   </div>

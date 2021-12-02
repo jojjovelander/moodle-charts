@@ -1,12 +1,17 @@
-import {HostListener} from '@angular/core';
+import {HostListener, Injectable} from '@angular/core';
 import {ApiService} from './api.service';
+import {ComponentState} from "./component-state";
 
-
+@Injectable()
 export class ChartBase {
 
-  constructor(private apiService: ApiService) {}
+  componentState = ComponentState;
+  currentComponentState: ComponentState = ComponentState.Loading
 
-  getApiService()  {
+  constructor(private apiService: ApiService) {
+  }
+
+  getApiService() {
     return this.apiService;
   }
 

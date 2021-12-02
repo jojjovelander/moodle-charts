@@ -12,7 +12,7 @@ import {SeriesDataset} from '../series-dataset';
 
 export class GroupedBarChartComponent extends ChartBase implements OnInit {
 
-  multi: SeriesDataset[];
+  datasets: SeriesDataset[];
 
   // options
   showXAxis = true;
@@ -32,11 +32,11 @@ export class GroupedBarChartComponent extends ChartBase implements OnInit {
   ngOnInit(): void {
     super.getApiService().getUserGradeItemsByCourse().subscribe(
       data => {
-        this.multi = JSON.parse(data.toString()) as SeriesDataset[];
-        console.log(this.multi);
+        this.datasets = JSON.parse(data.toString()) as SeriesDataset[];
+        console.log(this.datasets);
       }
     );
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().generalInfo.subscribe( data => this.course = data.course);
   }
 
   constructor(apiService: ApiService) {

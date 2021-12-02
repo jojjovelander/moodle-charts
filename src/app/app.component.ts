@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.token != null) {
-      this.apiService.authToken = this.token;
+      this.apiService.init(this.token);
     }
     if (this.start == null) {
       this.route.queryParams.subscribe(params => {

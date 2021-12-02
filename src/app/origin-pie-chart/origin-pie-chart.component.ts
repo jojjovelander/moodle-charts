@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ChartBase} from '../chart-base';
 import {ApiService} from '../api.service';
+import {ComponentState} from "../component-state";
+import {PieChartData} from "../pie-chart-data";
 
 @Component({
   selector: 'app-origin-pie-chart',
@@ -9,7 +11,7 @@ import {ApiService} from '../api.service';
 })
 export class OriginPieChartComponent extends ChartBase implements OnInit {
 
-  single: any[];
+  dataset: PieChartData[];
 
   // options
   gradient = true;
@@ -26,8 +28,18 @@ export class OriginPieChartComponent extends ChartBase implements OnInit {
   }
 
   ngOnInit(): void {
-    super.getApiService().getOriginData().subscribe(data => this.single = data);
-    super.getApiService().getGeneralInfo().subscribe( data => this.course = data.course);
+    super.getApiService().getOriginData().subscribe(
+      data => {
+        this.dataset = data;
+        if (this.dataset.length === 0) {
+          this.currentComponentState = ComponentState.NoData;
+        } else {
+          this.currentComponentState = ComponentState.Loaded
+        }
+      },
+      error => this.currentComponentState = ComponentState.Error
+    )
+    super.getApiService().generalInfo.subscribe(data => this.course = data.course);
   }
 
   onSelect(data): void {
@@ -41,5 +53,4 @@ export class OriginPieChartComponent extends ChartBase implements OnInit {
   onDeactivate(data): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
-
 }

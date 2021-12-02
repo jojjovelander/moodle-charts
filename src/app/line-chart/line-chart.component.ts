@@ -45,9 +45,13 @@ export class LineChartComponent extends ChartBase implements OnInit {
         course: generalInfo.course,
       }
     ))).subscribe(result => {
+        if (result.seriesData.length === 0) {
+          this.currentComponentState = ComponentState.NoData
+        } else {
+          this.currentComponentState = ComponentState.Loaded
+        }
         this.dataset = result.seriesData;
         this.course = result.course;
-        this.currentComponentState = ComponentState.Loaded
       },
       error => this.currentComponentState = ComponentState.Error,
     );

@@ -22,9 +22,13 @@ export class ApiService {
   courseId: string;
   isLinkMode = false;
   authToken: string;
-  unknownCourse = <GeneralInfo>{course: "GUFF"};
+  unknownCourse = <GeneralInfo>{course: "unknown course"};
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) { }
+
+  public init(token: string) {
+    this.authToken = token;
+    //this._generalInfo.next(<GeneralInfo>{course: "loading."})
     this.getGeneralInfo().subscribe(info => this._generalInfo.next(info));
   }
 
@@ -39,8 +43,8 @@ export class ApiService {
     console.log(url);
 
     return this.httpClient.get(url).pipe(
-      map(data => JSON.parse(data.toString()) as GeneralInfo),
-      mergeMap(info => iif(() => (info as GeneralInfo).course.length > 0, of(info), of(this.unknownCourse))),
+      map(responseData => JSON.parse(responseData.toString()) as GeneralInfo),
+      mergeMap(generalInfo => iif(() => (generalInfo as GeneralInfo).course.length > 0, of(generalInfo), of(this.unknownCourse))),
       catchError(val => of(this.unknownCourse))
     );
   }

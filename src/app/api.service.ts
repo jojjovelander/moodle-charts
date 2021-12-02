@@ -6,6 +6,7 @@ import {PieChartData} from './pie-chart-data';
 import {SeriesDataset} from './series-dataset';
 import {GeneralInfo} from './general-info';
 import {environment as Enviroment} from '../environments/environment';
+import {AssignmentData} from "./assignments-grades/assignments-grades.component";
 
 interface UserIPData {
   ip: string;
@@ -58,7 +59,7 @@ export class ApiService {
   public getAssignmentsGrades() {
     const url = `${Enviroment.HOST}${Enviroment.TOKEN}&moodlewsrestformat=json&wsfunction=local_course_statistics_webservice_get_assignment_grades&t=${this.authToken}`;
     console.log(url);
-    return this.httpClient.get(url);
+    return this.httpClient.get(url).pipe(map(data => JSON.parse(data.toString()) as AssignmentData[]));
   }
 
   public getPieChartData() {

@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {ChartBase} from '../chart-base';
-import {ComponentState} from "../component-state";
 import {SeriesDataset} from "../series-dataset";
+import {map} from "rxjs/operators";
+import {zip} from "rxjs";
+import {ComponentState} from "../component-state";
 
 @Component({
   selector: 'app-line-chart',
@@ -33,8 +35,22 @@ export class LineChartComponent extends ChartBase implements OnInit {
   }
 
   ngOnInit(): void {
-    super.getApiService().getUserEventOverTimeData().subscribe(data => this.dataset = data);
-    super.getApiService().generalInfo.subscribe(data => this.course = data.course);
+
+    zip(
+      super.getApiService().getUserEventOverTimeData(),
+      super.getApiService().generalInfo
+    ).pipe(map(([seriesData, generalInfo]) => (
+      {
+        seriesData: seriesData,
+        course: generalInfo.course,
+      }
+    ))).subscribe(result => {
+        this.dataset = result.seriesData;
+        this.course = result.course;
+        this.currentComponentState = ComponentState.Loaded
+      },
+      error => this.currentComponentState = ComponentState.Error,
+    );
   }
 
   onSelect(data): void {
